@@ -1,39 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import MicrosoftLogin from 'react-microsoft-login';
 import './App.css';
 
-interface AppProps {}
+
+//components
+import { Nav, Banner } from './components';
+
+import type { AppProps, dataProps } from './interfaces';
+import { CLINET_ID, EMAIL_ENDING, CLASSES } from './Constants';
 
 function App({}: AppProps) {
-  // Create the count state.
-  const [count, setCount] = useState(0);
-  // Create the counter (+1 every second).
-  useEffect(() => {
-    const timer = setTimeout(() => setCount(count + 1), 1000);
-    return () => clearTimeout(timer);
-  }, [count, setCount]);
-  // Return the App component.
+  const [userData, setUserData] = useState<dataProps | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const [canVote, setCanVote] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+
+  function authHandler(err: unknown, data: dataProps): void {
+    //console.log(err); //DEV
+    if (err === null) {
+      setUserData(data);
+      setToken(data.uniqueId);
+      const {
+        account: { userName },
+      } = data;
+      setCanVote(checkValidity(userName));
+      setEmail(userName);
+    } else console.log(err);
+  }
+  function checkValidity(em: string): boolean {
+    return em.endsWith(EMAIL_ENDING);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <p>
-          Page has been open for <code>{count}</code> seconds.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
+      {token && <Nav canVote={canVote} />}
+      {!token && (
+        <MicrosoftLogin clientId={CLINET_ID} authCallback={authHandler} />
+      )}
+      <div className="outer-container">
+        {canVote
+          ? CLASSES.map((each, i) => (
+              <Banner
+                cls={each.cls}
+                name={each.name}
+                key={i}
+                image={each.image}
+                email={email}
+              />
+            ))
+          : null}
+      </div>
     </div>
   );
 }
