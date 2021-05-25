@@ -15,33 +15,47 @@ function App({}: AppProps) {
   const [email, setEmail] = useState<string>('');
   const [msalInstance, onMsalInstanceChange] = useState<msalProps>();
 
-  function authHandler(err: unknown, data: dataProps, msal: msalProps): void {
+  function authHandler(
+    err: unknown,
+    data: dataProps,
+    instance: msalProps,
+  ): void {
     if (!err && data) {
-      onMsalInstanceChange(msal);
       setUserData(data);
       setToken(data.uniqueId);
-      console.log(msal);
-      console.log(data);
+      onMsalInstanceChange(instance);
       const {
         account: { userName },
       } = data;
 
       setCanVote(checkValidity(userName));
       setEmail(userName);
+      console.log(instance);
     } else console.log(err);
   }
   function checkValidity(em: string): boolean {
     return em.endsWith(EMAIL_ENDING);
   }
-
+  function logoutHandler(): void {
+    const logoutRequest = {
+      account: instance.getAccountByHomeId(homeAccountId),
+      mainWindowRedirectUri: 'your_app_main_window_redirect_uri',
+      postLogoutRedirectUri: 'your_app_logout_redirect_uri',
+    };
+    msalInstance?.logoutPopup(logoutRequest);
+  }
   return (
     <Router>
       <Switch>
-        <Route path="/">
+        <Route exact path="/">
           <div className="App">
             {token && <Nav canVote={canVote} />}
             {!token && (
-              <MicrosoftLogin clientId={CLINET_ID} authCallback={authHandler} />
+              <MicrosoftLogin
+                buttonTheme="dark"
+                clientId={CLINET_ID}
+                authCallback={authHandler}
+              />
             )}
             <div className="outer-container">
               {canVote
@@ -58,9 +72,9 @@ function App({}: AppProps) {
             </div>
           </div>
         </Route>
-         <Route path="/voted">
-           <Logout msalInstance={msalInstance}/>
-         </Route>
+        <Route exact path="/voted">
+          <Logout {...logoutHandler} />
+        </Route>
       </Switch>
     </Router>
   );
