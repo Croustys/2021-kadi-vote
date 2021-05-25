@@ -3,6 +3,7 @@ import { Button, Card } from 'react-bootstrap';
 import '../styles/components.css';
 
 import { postVote } from '../API/index.js';
+import { Redirect } from 'react-router-dom';
 
 interface bannerProps {
   name: string;
@@ -17,6 +18,7 @@ const Banner: FC<bannerProps> = ({ name, cls, image, email }) => {
     const success = await postVote(name, email);
     setLoading(success);
   }
+  if(loading) return <Redirect to="/voted" />
   return (
     <div className="container">
       <img src={`./images/${image}`} />
@@ -26,7 +28,7 @@ const Banner: FC<bannerProps> = ({ name, cls, image, email }) => {
             <Card.Title>{name}</Card.Title>
             <Card.Text>{cls}</Card.Text>
             {!loading && (
-              <Button variant="primary" onClick={handleClick}>
+              <Button variant="primary" className="vote" onClick={handleClick}>
                 Vote
               </Button>
             )}

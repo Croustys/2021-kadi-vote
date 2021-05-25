@@ -11,3 +11,15 @@ img {
     margin-bottom: 5vh;
     border: 0.2em solid black;
 }
+.vote {
+    width: 25%;
+    border: none;
+    outline: none;
+    color: #f8f8f8;
+    background-color: #00f;
+    padding: 0.5em;
+    border-radius: 0.3em;
+}
+.vote:hover {
+    cursor: pointer;
+}

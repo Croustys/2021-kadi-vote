@@ -15,3 +15,16 @@ export interface dataProps {
   expiresOn: object;
   idToken: object;
 }
+export interface msalProps {
+  account: AccountProps;
+  authResponseCallback: object;
+  authorityInstance: object;
+  cacheStorage: object;
+  clientId: string;
+  config: object;
+  errorReceivedCallback: unknown;
+  inCookie: boolean;
+  logger: object;
+  telemetryManager: object;
+  tokenReceivedCallback: unknown;
+}
