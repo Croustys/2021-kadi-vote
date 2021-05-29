@@ -28,3 +28,7 @@ export interface msalProps {
   telemetryManager: object;
   tokenReceivedCallback: unknown;
 }
+export interface voteContext {
+  loading?: boolean;
+  setLoading: (loading: boolean) => void;
+}

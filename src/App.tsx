@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,10 +12,12 @@ import { Nav, Banner, Logout } from './components';
 //types
 import type { AppProps, dataProps, msalProps } from './interfaces';
 import { CLINET_ID, EMAIL_ENDING, CLASSES } from './Constants';
+// @todo context for loading after voting
+//import { voteLoadingContext } from './context';
 
 function App({}: AppProps) {
   const [token, setToken] = useState<string | null>(null);
-  const [canVote, setCanVote] = useState<boolean>(true);
+  const [canVote, setCanVote] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [msalInstance, onMsalInstanceChange] = useState<msalProps>();
 
@@ -54,7 +56,9 @@ function App({}: AppProps) {
         </Route>
         <Route exact path="/">
           <div className="App">
-            {token ? <Nav canVote={canVote} {...msalInstance} /> : (
+            {token ? (
+              <Nav canVote={canVote} {...msalInstance} />
+            ) : (
               <div id="landing">
                 <h1>Kérlek lépj be az iskolai email címeddel!</h1>
                 <MicrosoftLogin

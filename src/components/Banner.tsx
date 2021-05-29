@@ -14,14 +14,15 @@ interface bannerProps {
 }
 
 const Banner: FC<bannerProps> = ({ name, cls, image, email }) => {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   async function handleClick() {
     setLoading(!loading);
     const success = await postVote(name, email);
     if (success) setLoading(!loading);
   }
-  if (loading) return <Loading />;
-  return (
+  return loading ? (
+    <Redirect to="/voted" />
+  ) : (
     <div className="container">
       <img src={`./images/${image}`} />
       <Card style={{ width: '18rem' }}>
