@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 import MicrosoftLogin from 'react-microsoft-login';
 import './App.css';
 //components
 import { Nav, Banner, Logout } from './components';
-
+//types
 import type { AppProps, dataProps, msalProps } from './interfaces';
 import { CLINET_ID, EMAIL_ENDING, CLASSES } from './Constants';
 
@@ -37,16 +42,19 @@ function App({}: AppProps) {
     return em.endsWith(EMAIL_ENDING);
   }
   function logoutHandler(): void {
-    const logoutRequest = {
-      account: instance.getAccountByHomeId(homeAccountId),
-      mainWindowRedirectUri: 'your_app_main_window_redirect_uri',
-      postLogoutRedirectUri: 'your_app_logout_redirect_uri',
-    };
-    msalInstance?.logoutPopup(logoutRequest);
+    // @ts-expect-error: Let's ignore a compile error
+    msalInstance.logout();
   }
   return (
     <Router>
       <Switch>
+        <Route path="/voted">
+          {msalInstance ? (
+            <Logout ClickHandler={logoutHandler} />
+          ) : (
+            <Redirect to="/" />
+          )}
+        </Route>
         <Route exact path="/">
           <div className="App">
             {token && <Nav canVote={canVote} />}
@@ -54,6 +62,7 @@ function App({}: AppProps) {
               <MicrosoftLogin
                 buttonTheme="dark"
                 clientId={CLINET_ID}
+                // @ts-expect-error: Let's ignore a compile error
                 authCallback={authHandler}
               />
             )}
@@ -71,9 +80,6 @@ function App({}: AppProps) {
                 : null}
             </div>
           </div>
-        </Route>
-        <Route exact path="/voted">
-          <Logout {...logoutHandler} />
         </Route>
       </Switch>
     </Router>

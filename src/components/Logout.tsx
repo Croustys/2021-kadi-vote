@@ -1,9 +1,13 @@
 import React from 'react';
-import type { msalProps } from '../interfaces/';
+import Button from 'react-bootstrap/Button';
 
-export default function Logout(msalInstance: msalProps): React.ReactElement {
-  function logoutHandler() {
-    msalInstance?.logout();
-  }
-  return <button onClick={logoutHandler}>Logout</button>;
+interface ToggleProps {
+  ClickHandler: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
+export default function Logout(Props: ToggleProps): React.ReactElement {
+  return (
+    <Button variant="warning" onClick={Props.ClickHandler}>
+      Logout
+    </Button>
+  );
 }

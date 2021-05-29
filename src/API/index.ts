@@ -1,5 +1,7 @@
 import axios from 'axios';
-const URL = `http://localhost:5000/api/v1/vote/add`;
+const DOMAIN = `https://vote2021kadi.herokuapp.com/`;
+const PATH = `api/v1/vote/add`;
+const URL = `${DOMAIN}${PATH}`;
 
 export const postVote = async (
   vote: string,

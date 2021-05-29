@@ -18,7 +18,7 @@ const Banner: FC<bannerProps> = ({ name, cls, image, email }) => {
     const success = await postVote(name, email);
     setLoading(success);
   }
-  if(loading) return <Redirect to="/voted" />
+  if (loading) return <Redirect to="/voted" />;
   return (
     <div className="container">
       <img src={`./images/${image}`} />
@@ -28,10 +28,10 @@ const Banner: FC<bannerProps> = ({ name, cls, image, email }) => {
             <Card.Title>{name}</Card.Title>
             <Card.Text>{cls}</Card.Text>
             {!loading && (
-              <Button variant="primary" className="vote" onClick={handleClick}>
+              <button className="vote" onClick={handleClick}>
                 Vote
-              </Button>
-            )}
+              </button>
+            )}  
           </Card.Body>
         </div>
       </Card>
