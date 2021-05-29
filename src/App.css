@@ -1,12 +1,19 @@
 .App {
   text-align: center;
-  background-color: rgb(43, 43, 43)
+}
+#landing {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(43, 43, 43);
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 .App code {
-  background: #FFF3;
+  background: #fff3;
   padding: 4px 8px;
   border-radius: 4px;
-  background-color: rgb(43, 43, 43)
 }
 .App p {
   margin: 0.4rem;
@@ -15,6 +22,10 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+h1 {
+  color: white;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -41,8 +52,4 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.container {
-  background-color: rgb(43, 43, 43);
-}
+} 
