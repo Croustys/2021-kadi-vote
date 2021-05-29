@@ -1,12 +1,20 @@
 import React, { FC } from 'react';
 import { Navbar } from 'react-bootstrap';
+import type { AccountProps } from 'src/interfaces';
 
-type navProps = { canVote: boolean };
+interface navProps {
+  canVote: boolean;
+  account?: AccountProps | undefined;
+}
 
-const Nav: FC<navProps> = ({ canVote }) => {
+const Nav: FC<navProps> = ({ canVote, account }) => {
   return (
-    <Navbar bg="light">
-      <Navbar.Brand>{canVote ? 'Szavazhat' : 'nem szavazhat'}</Navbar.Brand>
+    <Navbar bg="dark" variant="dark">
+      <h2>
+        {canVote
+          ? account?.name
+          : 'Sajnos nem Boronkays email címmel jelentkeztél be, így nem vagy jogosult a szavazásra!'}
+      </h2>
     </Navbar>
   );
 };

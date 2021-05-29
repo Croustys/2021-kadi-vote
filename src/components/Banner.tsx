@@ -1,9 +1,10 @@
 import React, { FC, useState } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 import '../styles/components.css';
 
 import { postVote } from '../API/index.js';
 import { Redirect } from 'react-router-dom';
+import { Loading } from '.';
 
 interface bannerProps {
   name: string;
@@ -13,12 +14,13 @@ interface bannerProps {
 }
 
 const Banner: FC<bannerProps> = ({ name, cls, image, email }) => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   async function handleClick() {
+    setLoading(!loading);
     const success = await postVote(name, email);
-    setLoading(success);
+    if (success) setLoading(!loading);
   }
-  if (loading) return <Redirect to="/voted" />;
+  if (loading) return <Loading />;
   return (
     <div className="container">
       <img src={`./images/${image}`} />
@@ -27,11 +29,13 @@ const Banner: FC<bannerProps> = ({ name, cls, image, email }) => {
           <Card.Body>
             <Card.Title>{name}</Card.Title>
             <Card.Text>{cls}</Card.Text>
-            {!loading && (
-              <button className="vote" onClick={handleClick}>
+            {!loading ? (
+              <Button variant="primary" className="vote" onClick={handleClick}>
                 Vote
-              </button>
-            )}  
+              </Button>
+            ) : (
+              <p>Loading...</p>
+            )}
           </Card.Body>
         </div>
       </Card>

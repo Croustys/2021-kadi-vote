@@ -9,7 +9,8 @@ img {
     width: 80%;
     flex-direction: row;
     margin-bottom: 5vh;
-    border: 0.2em solid black;
+    border: 0.1em solid black;
+    background-color: hsl(0, 0%, 50%);  
 }
 .vote {
     width: 25%;
@@ -22,4 +23,7 @@ img {
 }
 .vote:hover {
     cursor: pointer;
+}
+.sr-only {
+    color: white;
 }
