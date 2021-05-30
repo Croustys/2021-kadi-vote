@@ -58,3 +58,13 @@ p {
   justify-content: center;
   background-color: hsl(0, 0%, 17%);
 }
+#success {
+  font-size: 10em;
+}
+.success-container {
+  display: flex;
+  flex-direction: column;
+  height: 92vh;
+  justify-content: space-evenly;
+  align-items: center;
+}

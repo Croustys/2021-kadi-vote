@@ -27,3 +27,12 @@ img {
 .sr-only {
     color: white;
 }
+.hght {
+    height: 5vh;
+}
+.logout-btn {
+    height: 20vh;
+    width: 30%;
+    font-size: 2em;
+    font-weight: 700;
+}
