@@ -1,10 +1,11 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useContext } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import '../styles/components.css';
 
 import { postVote } from '../API/index.js';
 import { Redirect } from 'react-router-dom';
-import { Loading } from '.';
+
+import { VoteLoadingContext } from '../context';
 
 interface bannerProps {
   name: string;
@@ -14,15 +15,15 @@ interface bannerProps {
 }
 
 const Banner: FC<bannerProps> = ({ name, cls, image, email }) => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const { setLoading, setSuccess } = useContext(VoteLoadingContext);
   async function handleClick() {
-    setLoading(!loading);
+    setLoading(true);
     const success = await postVote(name, email);
-    if (success) setLoading(!loading);
+    
+    setSuccess(success);
+    setLoading(false);
   }
-  return loading ? (
-    <Redirect to="/voted" />
-  ) : (
+  return (
     <div className="container">
       <img src={`./images/${image}`} />
       <Card style={{ width: '18rem' }}>
@@ -30,13 +31,9 @@ const Banner: FC<bannerProps> = ({ name, cls, image, email }) => {
           <Card.Body>
             <Card.Title>{name}</Card.Title>
             <Card.Text>{cls}</Card.Text>
-            {!loading ? (
-              <Button variant="primary" className="vote" onClick={handleClick}>
-                Vote
-              </Button>
-            ) : (
-              <p>Loading...</p>
-            )}
+            <Button variant="primary" className="vote" onClick={handleClick}>
+              Vote
+            </Button>
           </Card.Body>
         </div>
       </Card>

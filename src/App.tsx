@@ -1,25 +1,34 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, FC } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from 'react-router-dom';
-import MicrosoftLogin from 'react-microsoft-login';
-import './App.css';
-//components
-import { Nav, Banner, Logout } from './components';
-//types
-import type { AppProps, dataProps, msalProps } from './interfaces';
-import { CLINET_ID, EMAIL_ENDING, CLASSES } from './Constants';
-// @todo context for loading after voting
-//import { voteLoadingContext } from './context';
 
-function App({}: AppProps) {
+import MicrosoftLogin from 'react-microsoft-login';
+import { Nav, Banner, Logout } from './components';
+
+import type {
+  dataProps,
+  msalProps,
+  voteSuccess,
+} from './interfaces/interfaces';
+import { CLINET_ID, EMAIL_ENDING, CLASSES } from './Constants';
+
+import { VoteLoadingContext } from './context';
+
+import './App.css';
+
+const App: FC = () => {
   const [token, setToken] = useState<string | null>(null);
   const [canVote, setCanVote] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [msalInstance, onMsalInstanceChange] = useState<msalProps>();
+
+  //context states
+  const [loading, setLoading] = useState<boolean>(false);
+  const [success, setSuccess] = useState<voteSuccess | undefined>();
 
   function authHandler(
     err: unknown,
@@ -35,7 +44,7 @@ function App({}: AppProps) {
 
       setCanVote(checkValidity(userName));
       setEmail(userName);
-    } else console.log(err);
+    } else console.error(err);
   }
   function checkValidity(em: string): boolean {
     return em.endsWith(EMAIL_ENDING);
@@ -47,46 +56,61 @@ function App({}: AppProps) {
   return (
     <Router>
       <Switch>
-        <Route exact path="/voted">
-          {msalInstance ? (
-            <Logout ClickHandler={logoutHandler} />
-          ) : (
-            <Redirect to="/" />
-          )}
-        </Route>
-        <Route exact path="/">
-          <div className="App">
-            {token ? (
-              <Nav canVote={canVote} {...msalInstance} />
+        <VoteLoadingContext.Provider
+          value={{ loading, success, setLoading, setSuccess }}
+        >
+          <Route exact path="/voted">
+            {msalInstance ? (
+              <Logout ClickHandler={logoutHandler} />
             ) : (
-              <div id="landing">
-                <h1>Kérlek lépj be az iskolai email címeddel!</h1>
-                <MicrosoftLogin
-                  buttonTheme="dark"
-                  clientId={CLINET_ID}
-                  // @ts-expect-error: https://www.npmjs.com/package/react-microsoft-login code example no TS support
-                  authCallback={authHandler}
-                />
-              </div>
+              <Redirect to="/" />
             )}
-            <div className="outer-container">
-              {canVote
-                ? CLASSES.map((each, i) => (
-                    <Banner
-                      cls={each.cls}
-                      name={each.name}
-                      key={i}
-                      image={each.image}
-                      email={email}
-                    />
-                  ))
-                : null}
+          </Route>
+          <Route exact path="/">
+            <div className="App">
+              {token ? (
+                <Nav canVote={canVote} {...msalInstance} />
+              ) : (
+                <div id="landing">
+                  <h1>Kérlek lépj be az iskolai email címeddel!</h1>
+                  <MicrosoftLogin
+                    buttonTheme="dark"
+                    clientId={CLINET_ID}
+                    // @ts-expect-error: https://www.npmjs.com/package/react-microsoft-login code example no TS support
+                    authCallback={authHandler}
+                  />
+                </div>
+              )}
+              {canVote ? (
+                <div className="outer-container">
+                  {!loading && success === undefined ? (
+                    CLASSES.map((each, i) => (
+                      <Banner
+                        cls={each.cls}
+                        name={each.name}
+                        key={i}
+                        image={each.image}
+                        email={email}
+                      />
+                    ))
+                  ) : loading ? (
+                    <h1>Loading...</h1>
+                  ) : success ? (
+                    <div className="success-container">
+                      <h1 id="success">Success!</h1>
+                      <Logout ClickHandler={logoutHandler} />
+                    </div>
+                  ) : (
+                    <h1>Error!</h1>
+                  )}
+                </div>
+              ) : null}
             </div>
-          </div>
-        </Route>
+          </Route>
+        </VoteLoadingContext.Provider>
       </Switch>
     </Router>
   );
-}
+};
 
 export default App;

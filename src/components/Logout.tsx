@@ -6,7 +6,7 @@ interface ToggleProps {
 }
 export default function Logout(Props: ToggleProps): React.ReactElement {
   return (
-    <Button variant="warning" onClick={Props.ClickHandler}>
+    <Button className="logout-btn" variant="warning" onClick={Props.ClickHandler}>
       Logout
     </Button>
   );

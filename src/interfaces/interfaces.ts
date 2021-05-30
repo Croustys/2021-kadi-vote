@@ -29,6 +29,9 @@ export interface msalProps {
   tokenReceivedCallback: unknown;
 }
 export interface voteContext {
-  loading?: boolean;
-  setLoading: (loading: boolean) => void;
+  loading: boolean;
+  setLoading: (load: boolean) => void;
+  success: voteSuccess | undefined;
+  setSuccess: (suc: voteSuccess) => void;
 }
+export type voteSuccess = boolean | number;

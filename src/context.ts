@@ -1,3 +1,10 @@
 import { createContext } from 'react';
 import type { voteContext } from './interfaces/interfaces';
-export const voteLoadingContext = createContext<voteContext | null>(null);
+
+const voteContextDefVal: voteContext = {
+  loading: false,
+  setLoading: () => {},
+  success: undefined,
+  setSuccess: () => {},
+};
+export const VoteLoadingContext = createContext<voteContext>(voteContextDefVal);

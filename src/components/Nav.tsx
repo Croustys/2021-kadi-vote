@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Navbar } from 'react-bootstrap';
-import type { AccountProps } from 'src/interfaces';
+import type { AccountProps } from 'src/interfaces/interfaces';
 
 interface navProps {
   canVote: boolean;
@@ -9,7 +9,7 @@ interface navProps {
 
 const Nav: FC<navProps> = ({ canVote, account }) => {
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar className="hght" bg="dark" variant="dark">
       <h2>
         {canVote
           ? account?.name
