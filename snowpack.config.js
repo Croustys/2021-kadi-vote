@@ -25,10 +25,7 @@ module.exports = {
   packageOptions: {
     /* ... */
   },
-  devOptions: {
-    /* ... */
-  },
   buildOptions: {
-    metaUrlPath: `dist`,
+
   },
 };
