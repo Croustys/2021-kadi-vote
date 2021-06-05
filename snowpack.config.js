@@ -20,8 +20,7 @@ module.exports = {
     // {"match": "routes", "src": ".*", "dest": "/index.html"},
   ],
   optimize: {
-    /* Example: Bundle your final build: */
-    // "bundle": true,
+    bundle: true,
   },
   packageOptions: {
     /* ... */
@@ -30,7 +29,7 @@ module.exports = {
     /* ... */
   },
   buildOptions: {
+    baseUrl: '/2021-kadi-vote',
     metaUrlPath: `dist`,
-    baseUrl: './',
   },
 };
