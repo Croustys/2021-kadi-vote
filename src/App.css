@@ -52,12 +52,7 @@ p {
 .App-link {
   color: #61dafb;
 }
-.outer-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  background-color: hsl(0, 0%, 17%);
-}
+
 #success {
   font-size: 10em;
 }
