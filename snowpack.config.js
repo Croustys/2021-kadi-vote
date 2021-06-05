@@ -26,6 +26,6 @@ module.exports = {
     /* ... */
   },
   buildOptions: {
-
+    baseUrl: './',
   },
 };
