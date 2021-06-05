@@ -29,7 +29,7 @@ module.exports = {
     /* ... */
   },
   buildOptions: {
-    baseUrl: '/2021-kadi-vote',
-    metaUrlPath: `dist`,
+    metaUrlPath: 'snowpack',
+    baseUrl: './',
   },
 };
