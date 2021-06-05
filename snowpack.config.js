@@ -30,6 +30,7 @@ module.exports = {
     /* ... */
   },
   buildOptions: {
-    /* ... */
+    metaUrlPath: `dist`,
+    baseUrl: './',
   },
 };
