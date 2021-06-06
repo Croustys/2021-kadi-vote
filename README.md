@@ -4,17 +4,17 @@ Built using Snowpack, React, Typescript
 ## Installation
 Clone this repo
 ```bash
-    git clone https://github.com/Croustys/2021_kadi_frontend.git
+ git clone https://github.com/Croustys/2021_kadi_frontend.git
 ```
 
 Install dependencies
 ```bash
-    npm install
+ npm install
 ```
 
 Start up dev server
 ```bash
-    npm start
+ npm start
 ```
 
 ## Requirements
