@@ -76,6 +76,7 @@ const App: FC = () => {
                   <MicrosoftLogin
                     buttonTheme="dark"
                     clientId={CLINET_ID}
+                    redirectUri={'https://vote2021kadi.netlify.app/'}
                     // @ts-expect-error: https://www.npmjs.com/package/react-microsoft-login code example no TS support
                     authCallback={authHandler}
                   />
