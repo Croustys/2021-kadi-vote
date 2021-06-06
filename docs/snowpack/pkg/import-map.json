@@ -5,6 +5,7 @@
     "react-bootstrap": "./react-bootstrap.js",
     "react-bootstrap/Button": "./react-bootstrap/Button.js",
     "react-dom": "./react-dom.js",
+    "react-microsoft-login": "./react-microsoft-login.js",
     "react-router-dom": "./react-router-dom.js"
   }
 }
