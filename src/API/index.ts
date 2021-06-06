@@ -10,7 +10,7 @@ export const postVote = async (
   try {
     const res = await axios.post(URL, { vote, email });
     return res.status === 200;
-  } catch (error) {
-    return error.status.code;
+  } catch (error: any) {
+    return error.status === 400;
   }
 };

@@ -101,7 +101,10 @@ const App: FC = () => {
                       <Logout ClickHandler={logoutHandler} />
                     </div>
                   ) : (
-                    <h1>Error!</h1>
+                    <div className="already-voted">
+                      <h1>Már Szavaztál!</h1>
+                      <Logout ClickHandler={logoutHandler} />
+                    </div>
                   )}
                 </div>
               ) : null}
