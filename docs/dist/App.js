@@ -57,6 +57,7 @@ const App = () => {
   }, /* @__PURE__ */ React.createElement("h1", null, "Kérlek lépj be az iskolai email címeddel!"), /* @__PURE__ */ React.createElement(MicrosoftLogin, {
     buttonTheme: "dark",
     clientId: CLINET_ID,
+    redirectUri: "https://vote2021kadi.netlify.app/",
     authCallback: authHandler
   })), canVote ? /* @__PURE__ */ React.createElement("div", {
     className: "outer-container"
