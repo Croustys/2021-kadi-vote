@@ -5,8 +5,9 @@ import {
   Route,
   Redirect
 } from "../snowpack/pkg/react-router-dom.js";
+import MicrosoftLogin from "../snowpack/pkg/react-microsoft-login.js";
 import {Nav, Banner, Logout} from "./components/index.js";
-import {EMAIL_ENDING, CLASSES} from "./Constants/index.js";
+import {CLINET_ID, EMAIL_ENDING, CLASSES} from "./Constants/index.js";
 import {VoteLoadingContext} from "./context.js";
 import "./App.css.proxy.js";
 const App = () => {
@@ -53,7 +54,11 @@ const App = () => {
     ...msalInstance
   }) : /* @__PURE__ */ React.createElement("div", {
     id: "landing"
-  }, /* @__PURE__ */ React.createElement("h1", null, "Kérlek lépj be az iskolai email címeddel!")), canVote ? /* @__PURE__ */ React.createElement("div", {
+  }, /* @__PURE__ */ React.createElement("h1", null, "Kérlek lépj be az iskolai email címeddel!"), /* @__PURE__ */ React.createElement(MicrosoftLogin, {
+    buttonTheme: "dark",
+    clientId: CLINET_ID,
+    authCallback: authHandler
+  })), canVote ? /* @__PURE__ */ React.createElement("div", {
     className: "outer-container"
   }, !loading && success === void 0 ? CLASSES.map((each, i) => /* @__PURE__ */ React.createElement(Banner, {
     cls: each.cls,
