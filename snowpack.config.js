@@ -19,14 +19,8 @@ module.exports = {
     /* Enable an SPA Fallback in development: */
     // {"match": "routes", "src": ".*", "dest": "/index.html"},
   ],
-  optimize: {
-    bundle: true,
-  },
-  packageOptions: {
-    /* ... */
-  },
   buildOptions: {
-    baseUrl: './',
+    out: 'docs',
     metaUrlPath: 'snowpack',
   },
 };

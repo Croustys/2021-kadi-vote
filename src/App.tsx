@@ -73,12 +73,12 @@ const App: FC = () => {
               ) : (
                 <div id="landing">
                   <h1>Kérlek lépj be az iskolai email címeddel!</h1>
-                  <MicrosoftLogin
+                  {/* <MicrosoftLogin
                     buttonTheme="dark"
                     clientId={CLINET_ID}
                     // @ts-expect-error: https://www.npmjs.com/package/react-microsoft-login code example no TS support
                     authCallback={authHandler}
-                  />
+                  /> */}
                 </div>
               )}
               {canVote ? (
