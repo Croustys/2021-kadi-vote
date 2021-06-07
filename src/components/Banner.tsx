@@ -1,9 +1,8 @@
-import React, { FC, useState, useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import '../styles/components.css';
 
 import { postVote } from '../API/index.js';
-import { Redirect } from 'react-router-dom';
 
 import { VoteLoadingContext } from '../context';
 
@@ -19,7 +18,7 @@ const Banner: FC<bannerProps> = ({ name, cls, image, email }) => {
   async function handleClick() {
     setLoading(true);
     const success = await postVote(name, email);
-    
+
     setSuccess(success);
     setLoading(false);
   }
