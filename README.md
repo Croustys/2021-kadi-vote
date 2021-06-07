@@ -1,5 +1,6 @@
 # Boronkay Voting web application for 2021 Kádi
-Built using Snowpack, React, Typescript
+Built using Snowpack, React, Typescript  
+Live Version: [vote2021kadi.netlify.app](https://vote2021kadi.netlify.app/)
 
 ## Installation
 Clone this repo
@@ -18,7 +19,7 @@ Start up dev server
 ```
 
 ## Requirements
-*Be a Boronkay Student*
+*Be a Boronkay Student* OR *be the owner of a Boronkay student email address*
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
